@@ -1,36 +1,44 @@
-let playerInput = prompt('Wybierz swój ruch 1: kamień, 2: papier, 3: nożyce');
+//let playerInput = prompt('Wybierz swój ruch 1: kamień, 2: papier, 3: nożyce');
 
-let randomNumber = Math.floor(Math.random() * 3 + 1);
+document.getElementById("rock-button").addEventListener('click', () => playGame('1'));
+document.getElementById("paper-button").addEventListener('click', () => playGame('2'));
+document.getElementById("scissors-button").addEventListener('click', () => playGame('3'));
+let counter = 0; 
 
-function moveToObject(move) {
-    if(move == '1') {
-        return 'kamień';
-    } else if (move == '2') {
-        return 'papier';
-    } else if (move == '3') {
-        return 'nożyce';
-    } else {
-        printMessage('Nie ma takiego ruchu...');
-        return 'wrongMove';
+function playGame(playerInput) {
+    let randomNumber = Math.floor(Math.random() * 3 + 1);
+
+    function moveToObject(move) {
+        if (move == '1') {
+            return 'kamień';
+        } else if (move == '2') {
+            return 'papier';
+        } else if (move == '3') {
+            return 'nożyce';
+        } else {
+            printMessage('Nie ma takiego ruchu...');
+            return 'wrongMove';
+        }
     }
-}
 
-function whoWon() {
-    const computerMove = moveToObject(randomNumber);
-    const playerMove = moveToObject(playerInput);
 
-    if(playerMove == 'wrongMove') return;
+    function whoWon() {
+        const computerMove = moveToObject(randomNumber);
+        const playerMove = moveToObject(playerInput);
+        counter = counter+1; 
+        if (playerMove == 'wrongMove') return;
 
-    if(computerMove == playerMove) {
-        printMessage('Remis!')
-    } else if ((computerMove == 'kamień' && playerMove == 'nożyce') ||
-               (computerMove == 'papier' && playerMove == 'kamień') || 
-               (computerMove == 'nożyce' && playerMove == 'papier')
-    ) {
-        printMessage('Przegrywasz tą rundę...')
-    } else {
-        printMessage('Wygrywasz!');
+        if (computerMove == playerMove) {
+            printMessage(`${counter}. Komputer wybrał ${computerMove}, Ty wybrałeś ${playerMove}. Remis!`)
+        } else if ((computerMove == 'kamień' && playerMove == 'nożyce') ||
+            (computerMove == 'papier' && playerMove == 'kamień') ||
+            (computerMove == 'nożyce' && playerMove == 'papier')
+        ) {
+            printMessage(`${counter}. Komputer wybrał ${computerMove}, Ty wybrałeś ${playerMove}. Przegrywasz tą rundę...`)
+        } else {
+            printMessage(`${counter}. Komputer wybrał ${computerMove}, Ty wybrałeś ${playerMove}. Wygrywasz!`);
+        }
     }
-}
 
-whoWon();
+    whoWon();
+}
