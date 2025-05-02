@@ -5,10 +5,10 @@ document.getElementById("paper-button").addEventListener('click', () => playGame
 document.getElementById("scissors-button").addEventListener('click', () => playGame('3'));
 let counter = 0; 
 
-function playGame(playerInput) {
-    let randomNumber = Math.floor(Math.random() * 3 + 1);
+const playGame = function (playerInput) {
+    const randomNumber = Math.floor(Math.random() * 3 + 1);
 
-    function moveToObject(move) {
+    const moveToObject = function (move) {
         if (move == '1') {
             return 'kamień';
         } else if (move == '2') {
@@ -22,7 +22,7 @@ function playGame(playerInput) {
     }
 
 
-    function whoWon() {
+    const whoWon = function () {
         const computerMove = moveToObject(randomNumber);
         const playerMove = moveToObject(playerInput);
         counter = counter+1; 
