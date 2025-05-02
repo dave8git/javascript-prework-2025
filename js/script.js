@@ -1,11 +1,36 @@
+let playerInput = prompt('Wybierz swój ruch 1: kamień, 2: papier, 3: nożyce');
+
 let randomNumber = Math.floor(Math.random() * 3 + 1);
 
-let computerMove = `kamień`;
+function moveToObject(move) {
+    if(move == '1') {
+        return 'kamień';
+    } else if (move == '2') {
+        return 'papier';
+    } else if (move == '3') {
+        return 'nożyce';
+    } else {
+        printMessage('Nie ma takiego ruchu...');
+        return 'wrongMove';
+    }
+}
 
-printMessage('Zagrałem ' + computerMove + '! Jeśli Twój ruch to papier, to wygrywasz!');
+function whoWon() {
+    const computerMove = moveToObject(randomNumber);
+    const playerMove = moveToObject(playerInput);
 
-let playerMove = `papier`;
+    if(playerMove == 'wrongMove') return;
 
-printMessage('Zagrałem ' + playerMove + '! Jeśli Twój ruch to kamień, to przegrywasz!');
+    if(computerMove == playerMove) {
+        printMessage('Remis!')
+    } else if ((computerMove == 'kamień' && playerMove == 'nożyce') ||
+               (computerMove == 'papier' && playerMove == 'kamień') || 
+               (computerMove == 'nożyce' && playerMove == 'papier')
+    ) {
+        printMessage('Przegrywasz tą rundę...')
+    } else {
+        printMessage('Wygrywasz!');
+    }
+}
 
-console.log('randomNumber', randomNumber);
+whoWon();
